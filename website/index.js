@@ -1,6 +1,15 @@
-document.addEventListener('DOMContentLoaded', () =>{    //callback function
+//document.addEventListener('DOMContentLoaded', () =>{    //callback function
   
-    const options = {
+    var d = new Date();
+    var t = d.getDate(); //get tag
+    var m = d.getMonth() + 1; //get monat, plus one cuz january is 0
+    var j = d.getFullYear();
+    var tagString = t.toString();   //we need to convert the numbers to strings
+    var monatString = m.toString();
+    var jahrString = j.toString();
+
+
+    var options = {
         chart:{
 
             zoomType: 'xy'
@@ -20,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () =>{    //callback function
         },
 
         title: {
-            text: 'Airmeter'
+            text: tagString +'.'+ monatString + '.' + jahrString //just d for full time
         },
 
         xAxis:{
@@ -54,5 +63,13 @@ document.addEventListener('DOMContentLoaded', () =>{    //callback function
     //     dataRefreshRate: 2
     // }
     // Highcharts.chart('container', options);
-});
+//});
 
+
+
+
+
+
+/*
+
+*/
