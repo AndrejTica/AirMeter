@@ -24,16 +24,20 @@
 
         // },
 
+        exporting:{
+            enabled: true
+        },
+
         credits:{                   //credit aus
             enabled: false
         },
 
         title: {
-            text: tagString +'.'+ monatString + '.' + jahrString //just d for full time
+            text: 'Airmeter: ' + tagString +'.'+ monatString + '.' + jahrString //just d for full time
         },
 
         xAxis:{
-            type: 'datetime', //funktioniert nur wenn ich monat und tag auch hab
+            type: 'Uhrszeit', //funktioniert nur wenn ich monat und tag auch hab
             title:{
                 text: 'Zeit'
             }
@@ -56,6 +60,43 @@
         };
         Highcharts.chart('container', options); //highchart global variable from library 
      });
+
+
+     function parseCSVData(csvFile){
+        //empty array for storing our data
+        var data = [];
+        //split into lines
+        var lines = csvFile.split("\n");
+        //go through each line
+        $.each(lines, function (lineNumber, line){
+            if (lineNumber != 0){
+                var fields = line.split(",");
+                if (fields.lenght == 7){
+                    var timestamp = Date.parse(fields[0]);
+                    var value = parseFloat(fields[6]);
+                    data.push([timestamp, value]);
+                }
+            }
+
+        });
+     }
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // options.data = {
     //     csvURL: '/home/andrej/Documents/LastSchoolYear/Airmeter/website/test.csv',
