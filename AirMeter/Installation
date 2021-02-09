@@ -1,0 +1,74 @@
+Vorbereitung:
+  Update starten:
+	sudo apt-get update
+	sudo apt-get upgrade
+
+  I2C aktivieren:
+	sudo raspi-config
+  5 Interfacing options, P5 I2C, Ja,Finish
+
+  Geschwindigkeit verringern und DS3231 hinzufügen:
+	sudo nano /boot/config.txt
+  Zeilen am Ende Hinzufügen:
+	dtparam=i2c_baudrate=10000
+	dtoverlay=i2c-rtc,ds3231
+  strg+x, J, Enter
+
+
+
+CCS811 Installieren:
+
+	sudo pip3 install adafruit-circuitpython-ccs811
+  Nachgelesen auf:
+	https://learn.adafruit.com/adafruit-ccs811-air-quality-sensor/raspberry-pi-wiring-test?view=all
+
+
+DHT22 Installieren:
+  piGpio Installieren:
+	sudo apt install python-setuptools python3-setuptools
+	wget https://github.com/joan2937/pigpio/archive/master.zip
+	unzip master.zip
+	cd pigpio-master
+	make
+	sudo make install
+
+  piGpio Demon bei jedem automatisch starten:
+	sudo systemctl enable pigpiod
+	sudo systemctl start pigpiod
+
+  Ordner _pycache_ in Verzeichnis des Projektes legen
+
+DS3231 Installieren:
+
+	sudo apt-get install i2c-tools
+	sudo reboot
+
+	(falls Systemzeit von Raspberry pi nicht stimmt:
+	sudo date -s "Sep 27 2014 12:46:00"      )
+
+	sudo hwclock		#zeigt die Zeit des DS3231
+	sudo hwclock -w		#setzt die Zeit des DS3231 auf die Systemzeit
+
+  ausschalten der softwarebasierten Uhr und NTP-Dienst:
+	sudo systemctl stop fake-hwclock.service
+	sudo systemctl disable fake-hwclock.service
+
+  Neue Regel erstellen:
+	sudo nano /etc/udev/rules.d/rtc-start.rules
+  In Datei:
+	ACTION=="add", SUBSYSTEM=="rtc", ATTRS{hctosys}=="0",
+ 	RUN+="/sbin/hwclock -s --utc"
+  strg+x, J, Enter, strg+x
+
+  Nachgelesen auf:
+	https://www.raspberry-pi-geek.de/ausgaben/rpg/2015/03/echtzeituhr-modul-ds3231-sorgt-fuer-genaue-zeitangaben/
+
+System Neustarten um alle änderungen zu Übernehmen:
+	sudo reboot
+
+
+
+
+
+
+
