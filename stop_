@@ -1,6 +1,0 @@
-1. Ist die Datei "stop" vorhanden, so
-   - wird sie in stop_ umbenannt und
-   - das Script wird beendet.
-2. Später
-   - wird die Datei "stop_" manuell in "stop" umbenannt und
-   - ein "reboot" durchgeführt => dann läuft der Prozess wieder bis 1.
