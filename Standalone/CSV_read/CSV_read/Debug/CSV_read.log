@@ -1,0 +1,3 @@
+﻿  main.cpp
+C:\Users\Andrej\Documents\Visual Studio 2019\Workspace\CSV_read\CSV_read\main.cpp(1,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  CSV_read.vcxproj -> C:\Users\Andrej\Documents\Visual Studio 2019\Workspace\CSV_read\Debug\CSV_read.exe
