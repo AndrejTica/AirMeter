@@ -20,7 +20,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    CSVRead quelle("/home/andre/chart/airMeter_20210202.csv");
+    CSVRead quelle("/home/andre/Airmeter/Standalone/chart/airMeter_20210202.csv");
     QLineSeries *series = new QLineSeries();
     vector<string> column = quelle.getColumn(4);
         int x=1;
