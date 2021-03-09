@@ -25,6 +25,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.js"></script>
     <title>Airmeter</title>
  -->
+
+ <style>
+
+    
+
+ </style>
+
 </head>
 
 <body>
@@ -32,7 +39,7 @@
 
     <input type="file"
     accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-    id="input" />
+    id="input" multiple><br><br> 
   
 
     <div id="container1"></div>
@@ -142,7 +149,7 @@
 //////////////////////////////////////////////////////////////////////////////////////
 
 */
-document.getElementById("update").addEventListener("click", drawGraph2, false);
+document.getElementById("input").addEventListener("change", drawGraph2, false);
  // Wrap current AJAX call in the event handler
  function drawGraph2() {
             // Obtain the name of the file selected by the user in the <input>

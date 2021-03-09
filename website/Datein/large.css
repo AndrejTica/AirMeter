@@ -1,0 +1,88 @@
+
+.buttonView{
+
+    color: #31A6FF;
+    text-decoration: inherit;
+    font-family: Courier New;
+    
+    font-size: 50px;
+    
+
+    border: solid 2px #31A6FF;
+    border-radius: 50px;
+    padding: 10px 80px;
+
+    transition-duration: 200ms;
+
+    
+
+ }
+
+.buttonView:hover{
+    background-color: #31A6FF;
+    color: #fff;
+
+
+}
+.containerViewPage{
+    position: relative;
+    left: 300px;
+    top: 600px;
+    
+}
+
+
+
+.buttonCompare{
+
+    color: #31A6FF;
+    text-decoration: inherit;
+    font-family: Courier New;
+
+    font-size: 50px;
+
+
+    border: solid 2px #31A6FF;
+    border-radius: 50px;
+    padding: 10px 80px;
+
+    transition-duration: 200ms;
+
+
+
+    }
+
+    .buttonCompare:hover{
+    background-color: #31A6FF;
+    color: #fff;
+
+
+    }
+    .containerCompare{
+    position: inherit;
+    left: 800px;
+    top: 543px;
+
+    }
+
+    .logo{
+      position: relative;
+      height: 500px;
+      top: -100px;
+       
+    }
+
+    #bothButtons{
+      position: relative;
+      top: -730px;
+      left: 210px;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      object-fit: contain;
+      
+      
+      
+    }
+  
+

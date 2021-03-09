@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <link id="pagestyle" rel="stylesheet" type="text/css" href="large.css">
+
+        <script type="text/javascript">
+
+            // function layoutHandler(){
+            //     var styleLink = document.getElementById("pagestyle");
+            //     if(window.innerWidth < 900 ){
+            //         styleLink.setAttribute("href", "mobile.css");
+            //     } else if(window.innerWidth < 1200 ){
+            //         styleLink.setAttribute("href", "mobile.css");
+            //     } else {
+            //         styleLink.setAttribute("href", "large.css");
+            //     }
+                
+               
+            // }
+            // window.onresize = layoutHandler;
+            // layoutHandler();
+
+        
+            
+            window.onresize = function() {
+                var width = $(window).width() - 25; 
+                $("#bothButtons").width(width);
+            }
+
+        </script>
+
+    </head>
+<body>
+
+
+
+    <div class="logo">
+        <img src="logo_simple.png" width="900" height="400" style='height: 100%; width: 100%; object-fit: contain'/>
+   </div>
+      
+       
+   
+   <div id="bothButtons" >
+       <div class="containerViewPage">
+           <a href="/index.html" class="buttonView">ViewPage</a>
+       </div>
+       
+       <div class="containerCompare">
+           <a href="" class="buttonCompare">Compare</a>
+       </div>
+       
+   </div>
+
+
+
+
+</body>
+</html>
