@@ -1,88 +1,48 @@
 
-.buttonView{
-
-    color: #31A6FF;
-    text-decoration: inherit;
-    font-family: Courier New;
-    
-    font-size: 50px;
-    
-
-    border: solid 2px #31A6FF;
-    border-radius: 50px;
-    padding: 10px 80px;
-
-    transition-duration: 200ms;
-
-    
-
- }
-
-.buttonView:hover{
-    background-color: #31A6FF;
-    color: #fff;
-
-
-}
-.containerViewPage{
-    position: relative;
-    left: 300px;
-    top: 600px;
-    
+@import url("//fonts.googleapis.com/css?family=Roboto:500");
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css");
+body {
+  padding: 64px 0;
+  text-align: center;
 }
 
+.face-button {
+  width: 200px;
+  height: 64px;
+  display: inline-block;
+  border: 3px solid #2d5365;
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  color: #2d5365;
+  overflow: hidden;
+}
+.face-button .icon {
+  margin-right: 6px;
+}
+.face-button .face-primary,
+.face-button .face-secondary {
+  display: block;
+  padding: 0 32px;
+  line-height: 64px;
+  transition: margin 0.4s;
+}
+.face-button .face-primary {
+  background-color: #2d5365;
+  color: #fff;
+}
+.face-button:hover .face-primary {
+  margin-top: -64px;
+}
 
-
-.buttonCompare{
-
-    color: #31A6FF;
-    text-decoration: inherit;
-    font-family: Courier New;
-
-    font-size: 50px;
-
-
-    border: solid 2px #31A6FF;
-    border-radius: 50px;
-    padding: 10px 80px;
-
-    transition-duration: 200ms;
-
-
-
-    }
-
-    .buttonCompare:hover{
-    background-color: #31A6FF;
-    color: #fff;
-
-
-    }
-    .containerCompare{
-    position: inherit;
-    left: 800px;
-    top: 543px;
-
-    }
-
-    .logo{
-      position: relative;
-      height: 500px;
-      top: -100px;
-       
-    }
-
-    #bothButtons{
-      position: relative;
-      top: -730px;
-      left: 210px;
-      width: 100%;
-      margin-left: auto;
-      margin-right: auto;
-      object-fit: contain;
-      
-      
-      
-    }
-  
-
+input[type=submit] {
+            background-color: 7cb5ec;
+            border: none;
+            text-decoration: none;
+            color: white;
+            padding: 20px 20px;
+            margin: 20px 20px;
+            cursor: pointer;
+}
