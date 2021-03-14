@@ -9,7 +9,7 @@ if (!isset($_POST['submit'])) {
 //$dir = '/var/www/html/Andrej/';
 $dir = $_POST['dir'];
 if(!isset($dir))
-    $dir = '/var/www/html/Andrej/Daten/';
+    $dir = 'Daten/';
 
  if ($dp = opendir($dir)) { 
  $files = array(); 
