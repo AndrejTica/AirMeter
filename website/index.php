@@ -2,16 +2,14 @@
 
 // over here i want to choose my dir
 
-echo '<p></p><a href="index.html">Go back to Main Page</a><p></p>';
 
-echo '<div class="checkbox-container">';
 // this lists all files and i can tick and submit them
 if (!isset($_POST['submit'])) { 
 
 //$dir = '/var/www/html/Andrej/';
 $dir = $_POST['dir'];
 if(!isset($dir))
-    $dir = 'Daten/';
+    $dir = '/var/www/html/Andrej/Daten/';
 
  if ($dp = opendir($dir)) { 
  $files = array(); 
@@ -28,38 +26,23 @@ if(!isset($dir))
  exit('Directory not opened.'); 
  } 
  if($subdirs){
-     echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'; 
-     foreach ($subdirs as $d) {
-        if($d == ".." || $d == "."){
-            continue;
-        }
-      
-      
-      echo '<button type="submit" name="dir" value="' . $dir . $d . '/" />' . $d . '</button>' . '<p></p>'; 
- 
- 
-     } 
+    echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'; 
+ foreach ($subdirs as $d) {
+    if($d == ".." || $d == "."){
+        continue;
+    }
+  echo '<input type="submit" name="dir" value="' . $dir . $d . '/" /> ' . 
+   $file . '<br />'; 
+ } 
  echo '</form>';  
  }
  if ($files) { 
  echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'; 
  foreach ($files as $file) { 
- 
- 
-  //echo '<input type="checkbox" name="files[]" value="' . $file . '" />' . '&#8195;&#8195;<br />'; 
- 
-   echo '<input name="files[]" value="' . $file . '" class="inp-cbx" id="' . $file . '" type="checkbox"/>
-          <label class="cbx" for="' . $file . '"><span>
-            <svg width="12px" height="10px">
-            <use xlink:href="#check"></use>
-            </svg></span><span>' . $file . '</span></label><svg class="inline-svg">
-            <symbol id="check" viewbox="0 0 12 10">
-            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-            </symbol>
-            </svg> <p></p>';
- 
+  echo '<input type="checkbox" name="files[]" value="' . $file . '" />' . 
+   $file . '<br />'; 
  } 
- echo '<p></<p><input type="submit" name="submit" value="submit" />' . 
+ echo '<input type="submit" name="submit" value="submit" />' . 
   '</form>'; 
  } else { 
  //exit('No files found.'); 
@@ -78,8 +61,6 @@ if(!isset($dir))
  exit('No files selected'); 
  }
 
-echo '</div>';
-
 }
 ?>
 
@@ -88,8 +69,7 @@ echo '</div>';
 <head>
   <meta charset="UTF-8">
   <title>Graph</title>
-   <link rel="stylesheet" href="./large2.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+  <link rel="stylesheet" href="./large.css">
   
 <!--    <meta charset="UTF-8"> -->
     
@@ -120,11 +100,12 @@ echo '</div>';
 
 <body>
 
-    <div class="BackButton">    
-        </div>
+
+
+
+
 
     <div id="container1"></div>
-    <div id="container2"></div>
 
     <script type="text/javascript">
 
@@ -205,92 +186,7 @@ echo '</div>';
 
 
         drawChart('<?php echo json_encode($csv_data); ?>');
-
-
-////////////////////////////////////////////////////////////////////////
-
-function drawChart2(raw_data) {
-
-let newTitle;
-
-console.log(raw_data);
-
-let chart = Highcharts.chart('container2', {
-
-    chart: {
-        zoomType: 'xy',
-        events: {
-            load: function () {
-                this.update({
-                    title: {
-                        text: 'AirMeter: ' + newTitle 
-                    }
-                })
-            }
-
-        }
-
-    },
-
-    xAxis: {
-
-        title: {
-            text: 'Zeit'
-        }
-    },
-
-    yAxis: {
-
-
-        title: {
-            text: 'CO2 in ppm'
-        }
-
-    },
-
-    exporting: {
-        enabled: true
-    },
-
-
-    title: {
-        text: null
-    },
-
-    credits: {
-        enabled: false
-    },
-
-    data: {
-        csv: raw_data,
-        parsed(e) {
-            newTitle = e[0][5]  //set the first column as title of the chart
-            
-            e.shift()
-
-        },
-        complete: function(options){
-        options.series.pop()
-        options.series.pop()
-        options.series.pop()
-        options.series.pop()
-    
-        
-
-        }
-
-    }
-
-
-});
-
-}
-
-
-drawChart2('<?php echo json_encode($csv_data); ?>');
-
     </script>
-    
 
 </body>
 
