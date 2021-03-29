@@ -1,2 +1,0 @@
-chromium-browser --user-data-dir=/home/pi/cors --disable-web-security --disable-site-isolation-trials
-
