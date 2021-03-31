@@ -81,8 +81,6 @@ echo '</div>';
 }
 ?>
 
-
-
 <!DOCTYPE html> <!-- Write your comments here -->
 <html lang="en">
 <head>
@@ -243,7 +241,7 @@ let chart = Highcharts.chart('container2', {
 
 
         title: {
-            text: 'CO2 in ppm'
+            text: 'Temperatur'
         }
 
     },
