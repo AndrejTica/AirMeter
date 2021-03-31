@@ -33,11 +33,8 @@ if(!isset($dir))
         if($d == ".." || $d == "."){
             continue;
         }
-      
-      
       echo '<button type="submit" name="dir" value="' . $dir . $d . '/" />' . $d . '</button>' . '<p></p>'; 
- 
- 
+
      } 
  echo '</form>';  
  }
@@ -47,8 +44,8 @@ if(!isset($dir))
  
  
   //echo '<input type="checkbox" name="files[]" value="' . $file . '" />' . '&#8195;&#8195;<br />'; 
- 
-   echo '<input name="files[]" value="' . $file . '" class="inp-cbx" id="' . $file . '" type="checkbox"/>
+   
+   echo '<input name="files[]" value="' . $dir . $file . '" class="inp-cbx" id="' . $file . '" type="checkbox"/>
           <label class="cbx" for="' . $file . '"><span>
             <svg width="12px" height="10px">
             <use xlink:href="#check"></use>
@@ -67,8 +64,9 @@ if(!isset($dir))
 } else { 
  if (isset($_POST['files'])) { 
  foreach ($_POST['files'] as $value) {
+    
     //writing file contents into a variable
-    $myfile = fopen($dir . $value, "r") or die("Unable to open file!");
+    $myfile = fopen($value, "r") or die("Unable to open file!");
     while(!feof($myfile)) {
       $csv_data .= fgets($myfile);  
     }
@@ -82,6 +80,8 @@ echo '</div>';
 
 }
 ?>
+
+
 
 <!DOCTYPE html> <!-- Write your comments here -->
 <html lang="en">
