@@ -54,11 +54,6 @@ input[type=submit] {
 }
 
 
-
-.htl{
-  position: relative;
-}
-
 html { 
   background: url(backround.png) no-repeat center center fixed; 
   -webkit-background-size: cover;

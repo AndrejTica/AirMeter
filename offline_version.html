@@ -1,0 +1,126 @@
+<!DOCTYPE html> <!-- Write your comments here -->
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="highcharts.js"></script>
+  <script src="data.js"></script>
+  <script src="exporting.js"></script>
+  <script src="export-data.js"></script>
+  <script src="accessibility.js"></script>
+  <script src="jquery-3.5.1.min.js"></script>
+  <script src="papaparse.js"></script>
+  <title>Airmeter</title>
+</head>
+
+<body>
+
+    <div id="container"></div>
+    <form id='form'>
+    
+    <input type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" id="input" />  
+    <button type='submit'>
+    update the chart
+    </button>
+    </form>
+    
+   
+  
+    
+
+  <script>
+
+// Add an event listener, so when a file is selected, the graph is drawn again
+document.getElementById("input").addEventListener("change", drawGraph, false);
+
+// Wrap your current AJAX call in the event handler
+function drawGraph() {
+
+  // Obtain the name of the file selected by the user in the <input>
+  var fileName = document.getElementById('input').files[0].name;
+
+  $.ajax({
+    type: "GET",
+    url: fileName, // use this name to fetch the selected file
+    success: function (data) {
+      setTitle(data)
+    }
+  });
+}
+
+
+
+function setTitle(raw_data){
+
+  let newTitle;
+ 
+  
+  let chart = Highcharts.chart('container', {
+    
+    chart: {
+      zoomType: 'xy',
+      events: {
+        load: function() {
+          this.update({
+            title: {
+              text: 'Airmeter: '+ newTitle
+            }
+          })
+        }
+        
+      }
+    
+    },
+    
+    xAxis:{
+     
+      title:{
+          text: 'Zeit'
+      }
+  },
+
+  yAxis:{
+      
+
+    title:{
+        text: 'CO2 in ppm'
+    }
+
+} ,
+  
+exporting:{
+  enabled: true
+},
+
+
+    title: {
+      text: null
+    },
+
+    credits:{                  
+      enabled: false
+  },
+
+    data: {
+      csv: raw_data,
+      parsed(e) {
+        newTitle=e[0][1]  //set the first column as title of the chart
+        e.shift()
+        
+      }
+      
+    }
+  
+  
+  });
+
+}
+
+
+  </script>
+
+</body>
+
+</html>
+
