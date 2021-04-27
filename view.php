@@ -1,36 +1,38 @@
+       
 <?php
-// over here i want to choose my dir
-
-
 // php code can not be viewed on website so you use echo
 // php can print html syntax into "file" via echo
 echo '<p></p><a href="index.html">Go back to Main Page</a><p></p>';
 
 echo '<div class="checkbox-container">';
 
-
-//isset(<request>) checks if value in request is set
-
-// this lists all files and i can tick and submit them
+/*
+isset(<request>) checks if value in request is set.
+Checks if input type "submit" is set (Button on website pressed).
+If it is not set, then ifcase is true and you can navigate further.
+*/
 if (!isset($_POST['submit']))
-//checks if input type "submit" is set (Button on website pressed) 
-//if it is not set, then ifcase is true and you can navigate further
 {
+    //Value 'dir' in post-request is the new dir.
+    //Value dir is the folder that you select
     $dir = $_POST['dir'];
-    //value 'dir' in post-request is the new dir
-    //value dir is the folder that you select
-    
-    if (!isset($dir)) $dir = 'Daten/';
+   
     //first time executeing the page 'dir' in post-request is not set,
-    //so it's set now to the folder that includes .csv files
+    //so it gets set now to the folder that includes .csv files
+    if (!isset($dir)) $dir = 'Daten/';
 
-    if ($dp = opendir($dir))//opens directory as a directory file
+    //opens directory as a directory file
+    if ($dp = opendir($dir))
     {
-        $files = array(); //declaired array
-        $subdirs = array(); //declaired array
-        while (($content = readdir($dp)) !== false) //reads directory contents one by one -> while and stores them in $content
+        //Arrays get declared
+        $files = array();
+        $subdirs = array(); 
+
+        //reads directory contents one by one -> while and stores them in $content
+        while (($content = readdir($dp)) !== false) 
         {
-            if (!is_dir($dir . $content)) //stores files in files and dirs in dirs
+             //stores files in files and dirs in dirs
+            if (!is_dir($dir . $content))
             {
                 $files[] = $content;
             }
@@ -39,31 +41,39 @@ if (!isset($_POST['submit']))
                 $subdirs[] = $content;
             }
         }
-        closedir($dp); //closing directory
+        //closing directory
+        closedir($dp); 
     }
     else
     {
-        exit('Directory not opened.'); // error handling
+        // error handling
+        exit('Directory not opened.'); 
     }
-    if ($subdirs) //if there are subdirs they are listed as buttons
+    //if there are subdirs they are listed as buttons
+    if ($subdirs) 
     {
-        echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'; //only with <form> tag you can execute get- or post-requests with you need for the buttons
+        //only with <form> tag you can execute get- or post-requests with you need for the buttons
+        echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'; 
         foreach ($subdirs as $d)
         {
-            if ($d == ".." || $d == ".") //on linux there are ".." and "." dirs, which point onto the parent directory and the current directory, which we do not want the user to see
+            //On linux there are ".." and "." dirs, which point onto the parent directory and the current directory.
+            //We do not want the user to see them.
+            if ($d == ".." || $d == ".") 
             {
                 continue;
             }
-            echo '<button type="submit" name="dir" value="' . $dir . $d . '/" />' . $d . '</button>' . '<p></p>';
             //$d is name of directory an is shown on button 
-            //value of button is the 'dir' (name="dir") in post-request an needs to be set for next iterations
+            //value of button is the 'dir' (name="dir") in post-request needs to be set for next iterations
+            echo '<button type="submit" name="dir" value="' . $dir . $d . '/" />' . $d . '</button>' . '<p></p>';
+            
 
         }
         echo '</form>';
     }
-    if ($files) //if there are files they are listed as checkboxes
+    //if there are files they are listed as checkboxes
+    if ($files) 
     {
-        echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'; //only with <form> tag you can execute get- or post-requests with you need for the buttons
+        echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">';
         foreach ($files as $file)
         {
 
@@ -92,18 +102,25 @@ if (!isset($_POST['submit']))
 }
 else
 {
-    if (isset($_POST['files'])) // if files in post-requests is set
+     // if files in post-requests is set
+    if (isset($_POST['files']))
     {
-        foreach ($_POST['files'] as $value) // loop through all files
+        // loop through all files
+        foreach ($_POST['files'] as $value) 
         {
-
             //writing file contents into a variable
-            $myfile = fopen($value, "r") or die("Unable to open file!"); //if you can not open, den write "Unable to open file!"
-            while (!feof($myfile)) //go through file-contents char by char until char is end of file char
+            //if unable to open -> "Unable to open file!"
+            $myfile = fopen($value, "r") or die("Unable to open file!"); 
+             //go through file-contents char by char until char is end of file char
+            while (!feof($myfile))
             {
-                $csv_data .= fgets($myfile); // write into csv_data which will be used for drawgraph() function
+                 // write into csv_data which will be used for drawgraph() function
+                $csv_data .= fgets($myfile);
+               
             }
-            fclose($myfile); //close file
+            //close file
+            fclose($myfile);
+            echo '<pre id="csv" style="display:none">'.$csv_data.'</pre>';
         }
     }
     else
@@ -114,7 +131,10 @@ else
     echo '</div>';
 
 }
-?>
+
+
+?> 
+
 
 
 <!DOCTYPE html> <!-- Write your comments here -->
@@ -122,9 +142,8 @@ else
     <head>
         <meta charset="UTF-8">
         <title>Graph</title>
-        <link rel="stylesheet" href="./large2.css">
+        <link rel="stylesheet" href="./viewPage.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
-        <!--    <meta charset="UTF-8"> -->
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="highcharts.js"></script>
@@ -134,113 +153,27 @@ else
         <script src="accessibility.js"></script>
         <script src="jquery-3.5.1.min.js"></script>
         <script src="papaparse.js"></script>
-        <!-- 
-            <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-            <script src="https://code.highcharts.com/highcharts.js"></script> 
-            <script src="https://code.highcharts.com/modules/data.js"></script>
-            <script src="https://code.highcharts.com/modules/exporting.js"></script>
-            <script src="https://code.highcharts.com/highcharts-more.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.js"></script>
-            <title>Airmeter</title>
-            -->
+        <script src="script.js"></script>
     </head>
     <body>
         <div class="BackButton">    
         </div>
+        <!-- Containers for the two charts -->
         <div id="container1"></div>
-        <div id="container2"></div>
-        <script type="text/javascript">
-            function drawChart(raw_data) {
-            
-                let newTitle;
-                
-                console.log(raw_data);
-            
-                let chart = Highcharts.chart('container1', {
-            
-                    chart: {
-                        zoomType: 'xy',
-                        events: {
-                            load: function () {
-                                this.update({
-                                    title: {
-                                        text: 'AirMeter: ' + newTitle 
-                                    }
-                                })
-                            }
-            
-                        }
-            
-                    },
-            
-                    xAxis: {
-            
-                        title: {
-                            text: 'Zeit'
-                        }
-                    },
-            
-                    yAxis: {
-            
-            
-                        title: {
-                            text: 'CO2 in ppm'
-                        }
-            
-                    },
-            
-                    exporting: {
-                        enabled: true
-                    },
-            
-            
-                    title: {
-                        text: null
-                    },
-            
-                    credits: {
-                        enabled: false
-                    },
-            
-                    data: {
-                        csv: raw_data,
-                        parsed(e) {
-                            newTitle = e[0][5]  //set the first column as title of the chart
-                            
-                            e.shift()
-            
-                        },
-                        complete: function(options){
-                        options.series.splice(0,1)
-                        options.series.splice(0,1)
-                        options.series.splice(0,1)
-                        options.series.splice(0,1)
-            
-                        }
-            
-                    }
-            
-            
-                });
-                
-            }
-            
-            
-            drawChart('<?php echo json_encode($csv_data); ?>');
-            
-            
-            ////////////////////////////////////////////////////////////////////////
-            
-            function drawChart2(raw_data) {
-            
-            let newTitle;
-            
-            console.log(raw_data);
-            
-            let chart = Highcharts.chart('container2', {
-            
-            chart: {
-            zoomType: 'xy',
+
+
+<script type="text/javascript">
+//function to draw charts. 
+//gets the converted php var data as parameter
+function drawChart() {
+
+    //this will hold the date as title of thr chart
+    let newTitle;
+
+    let chart = Highcharts.chart('container1', {
+
+        chart: {
+            zoomType: 'x',
             events: {
                 load: function () {
                     this.update({
@@ -249,69 +182,60 @@ else
                         }
                     })
                 }
-            
+
             }
-            
-            },
-            
-            xAxis: {
-            
+
+        },
+
+        xAxis: {
+
             title: {
                 text: 'Zeit'
             }
-            },
-            
-            yAxis: {
-            
-            
+        },
+
+        yAxis: {
+
             title: {
-                text: 'Temperatur'
+                text: 'CO2 in ppm'
             }
-            
-            },
-            
-            exporting: {
+
+        },
+
+        exporting: {
             enabled: true
-            },
-            
-            
-            title: {
-            text: null
-            },
-            
-            credits: {
+        },
+
+
+        title: {
+            text: null 
+        },
+
+        credits: {
             enabled: false
-            },
-            
-            data: {
-            csv: raw_data,
+        },
+
+        data: {
+           
+            csv: document.getElementById('csv').innerHTML,
             parsed(e) {
-                newTitle = e[0][5]  //set the first column as title of the chart
-                
+                newTitle = new Date(e[0][5]).toDateString();  //set the first column as title of the chart
+
                 e.shift()
-            
+
             },
             complete: function(options){
-            options.series.pop()
-            options.series.pop()
-            options.series.pop()
-            options.series.pop()
-            
-            
-            
+              //options.series.splice(0,1)
             }
-            
-            }
-            
-            
-            });
-            
-            }
-            
-            
-            drawChart2('<?php echo json_encode($csv_data); ?>');
-            
-        </script>
-    </body>
-</html>
+        }
 
+
+    });
+    
+}
+
+drawChart();
+</script>
+
+</body>
+</html>
